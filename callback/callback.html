@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructura de un callback</title>
+</head>
+<body>
+    
+
+    <script>
+
+        // Tenemos una funcion y pasamos otra por argumento
+         function suma(a,b){
+        return a + b;
+
+        }
+        // El callback de parametro puede llevar el nombre que queramos
+        // llamamos a la funcion suma utilizando el parametro suma
+        function calc(a,b, callback){
+            return callback(a,b)
+        }
+
+        console.log(calc(3,6, suma));
+
+        // funcion que llama la fecha y sirve para construir la otra
+        function date(callback){
+            // imprime la fecha
+            console.log(new Date);
+            // funcion que utilizamos para llamar al callback
+            setTimeout( function() {
+                /*se guarda esa fecha en date y se ejecuta despues 
+                de 3 segundos*/
+                let date = new Date;
+                callback(date);
+            }, 3000)
+        }
+        // funcion que llamamos (callback)
+        function printDate(dateNow){
+            console.log("soy printdate");
+            console.log(dateNow);
+        }
+
+        date(printDate);
+
+        // intento de hacer un callback
+        const mensaje = "Hola yo soy el mensaje";
+        
+        function principal(callback){
+            console.log(`${mensaje} soy el mensaje principal`);
+
+            setTimeout(function(){
+                let mensaje2 = `${mensaje} hola soy soy el 2do mensaje`;
+                callback(mensaje2);
+            }, 3000)
+        }
+
+        function print2(nowMensaje){
+            console.log("yo activo el 2do mensaje")
+            console.log(nowMensaje);
+        }
+
+        principal(print2);
+        
+
+
+    </script>
+</body>
+</html>

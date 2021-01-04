@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conociendo el asyn/await</title>
+</head>
+<body>
+    
+
+
+
+    <script>
+
+        // funcion que después será llamada con el async
+        const doSomethingAsync = () => {
+            // se hace la promesa 
+            return new Promise((resolve, reject) => {
+                (true)
+                // si se resuelve, dar este mensaje
+                ? setTimeout(() => resolve("Do something async"), 3000)
+                // si se rechaza llega a este error 
+                : reject(new Error( "Hubo un error"))
+            });
+        }
+        // esta funcion es para ejecutarla 
+        const doSomething = async () => {
+            /* está encapsulando a doSomethingAsync en something
+             espera que con el await a que se resuelva y después la arroja 
+            con un console.log*/
+            const something = await doSomethingAsync();
+            console.log(something);
+        }
+        // se hace el llamado de la funciones para ver como se comporta
+        console.log("Before");
+        doSomethingAsync();
+        console.log("After");
+        
+
+        // Trabajando con los errores 
+        const anotherFunction = async () => {
+            try {
+                const something = await doSomethingAsync();
+                console.log(something);
+
+                // esto es para el error
+            } catch (error) {
+                console.error(error)
+            }      
+        }
+
+        console.log("Before 1");
+        anotherFunction();
+        console.log("After 2");
+        
+    </script>
+</body>
+</html>

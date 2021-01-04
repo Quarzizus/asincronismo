@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api con asycn y await</title>
+</head>
+<body>
+    
+
+
+    <script>
+        
+        let url = "https://rickandmortyapi.com/api/character/";
+
+        const llamarDatos = (url) => {
+            return new Promise((resolve, reject) =>{
+            const XML = new XMLHttpRequest();
+            XML.open("GET", url, true);
+            XML.onreadystatechange = (() => {
+                if(XML.readyState === 4){
+                    (XML.status === 200)
+                        ? resolve(JSON.parse(XML.responseText))
+                        : reject(new Error("error", url))
+                }
+            })
+            XML.send();
+            })
+        }
+        const mostrarDatos = async () =>{
+            try {
+                const datos = await llamarDatos(`${url}`);
+                console.log(datos.results[0].name);
+                console.log(datos.results[0].origin.name);
+                console.log(datos.results[0].location.name);
+            } catch (error) {
+               console.error(error) 
+            }
+        }
+
+        mostrarDatos(url);
+    </script>
+</body>
+</html>

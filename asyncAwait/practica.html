@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica con async y await</title>
+</head>
+<body>
+    
+
+    <ul id="imagenes">
+        
+    </ul>
+    <script>
+        let contenido = document.getElementById("imagenes");
+        //función que será llamada 
+        const show = async(datos)=>{
+            try {
+                // Iteramos con un for in el array
+                contenido.innerHTML = "";
+                 for(i of datos){
+                     // aquí podríamos hacer el resto de llamados
+                     await (contenido.innerHTML +=`
+                     <li>${i.name}</li>
+                     <img src="${i.image}"></img>
+                     `)
+                     
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        // función que llama
+        const bring = () =>{
+            const url = `https://rickandmortyapi.com/api/character/`;
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("GET", url, true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = (()=>{
+                if(xhttp.status ===200 && xhttp.readyState === 4){
+                    let data = JSON.parse(xhttp.responseText);
+                    data = data.results;
+                    // llamado a la primera función 
+                    show(data);
+                }
+            })
+        }
+
+        console.log("Holi, yo voy primero");
+        bring();
+        console.log("Holi, yo voy de ultimas");
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refuerzo de await</title>
+</head>
+<body>
+    
+
+
+
+    <script>
+        const analizar = () => {
+            return new Promise ((resolve, reject) =>{
+                (true)
+                ? setTimeout(() => resolve("Analisis completo Xd"),3000)
+                : reject(new Error("Hubo un error men"))
+            })
+        }
+
+        const lanzar = async () => {
+               const lanzamiento1 = await analizar();
+               console.log(lanzamiento1)
+        }
+
+        lanzar();
+        console.log("1,2,3,4 ...");
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementando promesas</title>
+</head>
+<body>
+    
+
+
+    <script>
+
+        //Promesas
+
+        const somethingWillHappend = () => {
+            return new Promise((resolve, reject) =>{
+                if(true){
+                    resolve ("Está hecho");
+                }else{
+                    reject("Oh raios");
+                }
+            });
+        }
+
+        somethingWillHappend()
+        .then(Response => console.log(Response))
+        .catch(err => console.log(err));
+
+        const somethingWillHappend2 = () => {
+            return new Promise((resolve, reject) =>{
+                if(true){
+                    setTimeout(() => {
+                        resolve("true");
+                    }, 2000);
+                }else{
+                    // el new error es para debugear si alguito
+                    const error = new Error ("Oh men, lo sieno");
+                    reject (error);
+                }
+            })
+        }
+
+        somethingWillHappend2()
+        .then(Response => console.log(Response))
+        .catch(err => console.error(err));
+        
+
+        //El promise.all es para retornar un array con las respuestas
+        Promise.all([somethingWillHappend(), somethingWillHappend2()])
+        .then(Response => {
+            console.log("Array results", Response)
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    </script>
+</body>
+</html>
